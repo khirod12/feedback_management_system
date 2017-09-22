@@ -1,0 +1,31 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>&nbsp</th>
+      <th>Feedbacks</th>
+      <th>User</th>
+      <th>Customer</th>
+      <th>Likes</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  <%@feedback.each do |f|%>
+    <tr>
+      <td><input type="checkbox" value=<%=f.id%>></td>
+      <td><%= link_to f.feedback_title, redcomment_path(:feedback_id => f.id)%></td>
+      <td><a href=<%=mail_url(f)%> title="title" ><%=f.email%></a></td>
+      <td><%=customer_name(f.user_id)%></td>
+      <td>
+       <%=count_vote(f.id)%>
+      </td>
+      <td><%=image_tag("hot_images.jpg",size: "16x10") if count_vote(f.id) >=5 %></td>
+    </tr>
+  <%end%>  
+  </tbody>
+</table></br></br>
+<button type="button" class="btn btn-primary">Send to Evaluate</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+
+<%if admin?(session[:user_id])%>
+  <button type="button" class="btn btn-primary">Delete</button>
+<%end%>

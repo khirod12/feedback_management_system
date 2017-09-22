@@ -1,0 +1,52 @@
+
+<div class="container">
+  <div class="row">
+    <div class="column col-md-1 col-sm-2">
+    
+    </div>
+    <div class="column col-md-4 col-sm-2">
+      <p><b>Post Title</b></p>
+    </div>
+    <div class="column col-md-4 col-sm-2">
+      <p><b>User</b></p>
+    </div>
+        <div class="column col-md-2 col-sm-2">
+      <p><b>Likes</b></p>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+<%@feedback.each do |f|%>
+  <div class="row">
+
+  	<div class="column col-md-1 col-sm-2">
+       <div class="checkbox">
+          <label><input type="checkbox"></label>
+        </div>
+    </div>
+    <div class="column col-md-4 col-sm-4">
+      <p><%= link_to f.feedback_title, redcomment_path(:feedback_id => f.id) %> </p>
+    </div>
+    <div class="column col-md-4 col-sm-2">
+      <p><%=f.email%></p>
+    </div>
+        <div class="column col-md-2 col-sm-2">
+      <p>
+      <%if @comment.find_by(f.id.to_s).nil?%>
+        0
+        <%else%>
+      	<%=@comment.find_by(f.id.to_s).vote_count%>
+      <%end%>	
+      </p>
+    </div>
+  </div>
+<%end%>
+</div>
+<button type="button" class="btn btn-primary">Send to Evaluate</button>
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_name: MyString
+  app_name: MyString
+  app_comp: MyString
+  feedback_title: MyString
+  feedback_desc: MyText
+  screenshot: 
+  user: one
+  customer: one
+
+two:
+  project_name: MyString
+  app_name: MyString
+  app_comp: MyString
+  feedback_title: MyString
+  feedback_desc: MyText
+  screenshot: 
+  user: two
+  customer: two

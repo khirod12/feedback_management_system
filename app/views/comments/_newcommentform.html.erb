@@ -1,0 +1,70 @@
+<%= form_for(comment) do |f| %>
+  <% if comment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+      <% comment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <h1><%= f.label @feedback.feedback_title %></h1>
+  </div>
+
+  <div class="field">
+    <%= f.label :Feedback_Description %>
+    <pre>
+    <%= f.label @feedback.feedback_desc %>
+    </pre>
+  </div>
+
+ <%if voted?(@feedback.id,session[:user_id])%>
+    <div class="action">
+    <button type="button" class="btn btn-secondary btn-lg disabled">like</button>
+    </div></br>
+ <%else%>
+    <div class="action">
+    <%= link_to "Like", like_path(:comment=> {:feedback_id => @feedback.id, :user_id => session[:user_id],:vote_count =>'1'}), class: 'btn btn-success'%>
+    </div></br>
+  <%end%>
+
+  <div class="field">
+    <%= f.label :comments %>
+    <%@comment%>
+    <pre>
+      <%if @pre_comment.nil?%>
+         no comments Yet..
+      <%else%>
+        <%@pre_comment.each do |c|%>
+          <%if c.feedback_id==@feedback.id && c.comment_text!=nil%>
+            <%= f.label c.comment_text%>--<%=@user.find_by_id(c.user_id.to_s).email%>
+          <%end%>
+        <%end%>     
+      <%end%>
+    </pre>
+  </div>
+
+  <div class="field">
+    <%= f.label :ScreenShot %>
+    <img/>
+  </div>
+
+  <div class="field">
+    <%= f.label :your_comment %>
+    <%= f.text_area :comment_text %>
+  </div>
+  <div class="field">
+      <input type="hidden" class="field" name="user_id" value= <%= session[:user_id]%> />
+      <input type="hidden" class="field" name="feedback_id" value= <%= @feedback.id%> />
+  </div>
+
+  <div class="btn-group">
+    <%= f.submit "Post", class: "btn btn-primary" %>
+  </div>
+
+<% end %>
